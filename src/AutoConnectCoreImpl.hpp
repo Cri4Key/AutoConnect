@@ -246,7 +246,11 @@ bool AutoConnectCore<T>::begin(const char* ssid, const char* passphrase, unsigne
     if (_apConfig.autoRise) {
 
       // Change WiFi working mode, Enable AP with STA
-      WiFi.setAutoConnect(false);
+#if defined(ARDUINO_ARCH_ESP32) && ((ESP_IDF_VERSION_MAJOR > 3) || ((ESP_IDF_VERSION_MAJOR == 3) && (ESP_IDF_VERSION_MINOR >= 1)))
+      WiFi.setAutoReconnect(false);
+#else
+      WiFi.setAutoConnect(false); // Deprecated in ESP32 from ESP-IDF v3.1
+#endif
       disconnect(false, true);
 
       // Activate the AP mode with configured softAP and start the access point.
@@ -559,8 +563,13 @@ void AutoConnectCore<T>::handleRequest(void) {
     if (_apConfig.retainPortal && _apConfig.autoRise) {
       // Cancel AutoReconnect to ensure detection for queries to penetrate
       // to the internet from a client.
-      if (WiFi.getAutoConnect())
+#if defined(ARDUINO_ARCH_ESP32) && ((ESP_IDF_VERSION_MAJOR > 3) || ((ESP_IDF_VERSION_MAJOR == 3) && (ESP_IDF_VERSION_MINOR >= 1)))
+      if (WiFi.getAutoReconnect())
         WiFi.setAutoReconnect(false);
+#else
+      if (WiFi.getAutoConnect()) // Deprecated in ESP32 from ESP-IDF v3.1
+        WiFi.setAutoReconnect(false);
+#endif
 
       // Restart the responder for the captive portal detection.
       if (!(WiFi.getMode() & WIFI_AP)) {
