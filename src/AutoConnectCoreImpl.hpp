@@ -31,10 +31,10 @@
 
 // An actual reset function dependent on the architecture
 #if defined(ARDUINO_ARCH_ESP8266)
-#define SOFT_RESET()  ESP.reset()
+#define SOFT_RESET_ESP()  ESP.reset()
 #define SET_HOSTNAME(x) do { WiFi.hostname(x); } while(0)
 #elif defined(ARDUINO_ARCH_ESP32)
-#define SOFT_RESET()  ESP.restart()
+#define SOFT_RESET_ESP()  ESP.restart()
 #define SET_HOSTNAME(x) do { WiFi.setHostname(x); } while(0)
 #endif
 
@@ -728,7 +728,7 @@ void AutoConnectCore<T>::handleRequest(void) {
     _stopPortal();
     AC_DBG("Reset\n");
     delay(1000);
-    SOFT_RESET();
+    SOFT_RESET_ESP();
     delay(1000);
   }
 
@@ -756,7 +756,7 @@ void AutoConnectCore<T>::handleRequest(void) {
 
       if (_apConfig.autoReset) {
         delay(1000);
-        SOFT_RESET();
+        SOFT_RESET_ESP();
         delay(1000);
       }
     }
