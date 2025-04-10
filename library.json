@@ -5,12 +5,12 @@
   "homepage": "https://hieromon.github.io/AutoConnect",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Hieromon/AutoConnect.git"
+    "url": "https://github.com/Cri4Key/AutoConnect.git"
   },
   "dependencies": [
     {
       "name": "PageBuilder",
-      "version": ">=1.5.6"
+      "version": ">=1.6.0"
     },
     {
       "name": "ArduinoJson",
@@ -22,7 +22,7 @@
     "espressif8266",
     "espressif32"
   ],
-  "version": "1.4.2",
+  "version": "1.5.0",
   "license": "MIT",
   "headers": [
     "AutoConnect.h",
