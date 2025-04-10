@@ -10,7 +10,7 @@
   "dependencies": [
     {
       "name": "PageBuilder",
-      "version": ">=1.6.0"
+      "version": "https://github.com/Cri4Key/PageBuilder.git#1.6.0"
     },
     {
       "name": "ArduinoJson",
